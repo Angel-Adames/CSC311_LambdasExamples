@@ -2,8 +2,11 @@ package org.example;
 
 // Fig. 17.12: ArraysAndStreams2.java
 // Demonstrating lambdas and streams with an array of Strings.
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ArraysAndStreams2 {
    public static void main(String[] args) {
@@ -32,9 +35,36 @@ public class ArraysAndStreams2 {
                .filter(s -> s.compareToIgnoreCase("n") < 0)
                .sorted(String.CASE_INSENSITIVE_ORDER.reversed())
                .collect(Collectors.toList()));
-   }
-} 
 
+      // stream to filter strings that start with a vowel (case-insensitive)
+      System.out.printf("strings only starting with a vowel: %s%n",
+              Arrays.stream(strings)
+                    .filter(s -> s.startsWith("a") || s.startsWith("e")
+                    || s.startsWith("i") || s.startsWith("o") || s.startsWith("u")
+                    || s.startsWith("A") || s.startsWith("E") || s.startsWith("I") || s.startsWith("O") || s.startsWith("U"))
+                    .sorted(String.CASE_INSENSITIVE_ORDER)
+                    .collect(Collectors.toList()));
+
+      // stream to concatenate all the strings into a single string separated by a comma
+      System.out.printf("concatenates all elements into one string separated by a comma: %s%n",
+              Arrays.stream(strings)
+                    .sorted(String.CASE_INSENSITIVE_ORDER)
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(", ")));
+
+      // stream to count the number of strings that contain more than 5 characters
+      System.out.printf("count the number of strings that contain more than 5 characters: %s%n",
+              Arrays.stream(strings)
+                    .filter(s -> s.length() > 5)
+                    .count());
+
+      // stream to print the number of strings that contain more than 5 characters
+      System.out.printf("count the number of strings that contain more than 5 characters: %s%n",
+              Arrays.stream(strings)
+                      .filter(s -> s.length() > 5)
+                      .collect(Collectors.toList()));
+   }
+}
 
 /**************************************************************************
  * (C) Copyright 1992-2018 by Deitel & Associates, Inc. and               *
